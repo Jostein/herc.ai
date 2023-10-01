@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const axios = require('axios');
 const baseurl = "https://hercai.onrender.com/v2/hercai";
 
 
 /**
  * @typedef {Class} Hercai
  * @see {Hercai}
+ * @param {Class} Hercai
  * @example const { Hercai } = require("hercai");
  * @example import { Hercai } from "hercai";
  * @type {Class}
@@ -30,12 +30,12 @@ async question({model = "v2",content}){
 if(!["v2","beta"].some(ind => model == ind)) model = "v2";
 if(!content || content == undefined || content == null)throw new Error("Please specify a question!");
 try{
-var api = await axios.get(`https://hercai.onrender.com/${model}/hercai?question=`+encodeURI(content),{
+var api = await fetch(`https://hercai.onrender.com/${model}/hercai?question=`+encodeURI(content),{
     headers: {
         "content-type": "application/json",
     },
 })
-return api.data;
+return await api.json();
 }catch(err){
 throw new Error("Error: "+ err.message)   
 }
@@ -54,12 +54,12 @@ async drawImage({model = "v1",prompt}){
     if(!["v1","v2","v2-beta"].some(ind => model == ind)) model = "v1";
     if(!prompt || prompt == undefined || prompt == null)throw new Error("Please specify a prompt!");
     try{
-    var api = await axios.get(`https://hercai.onrender.com/${model}/text2image`+"?prompt="+encodeURI(prompt),{
+    var api = await fetch(`https://hercai.onrender.com/${model}/text2image`+"?prompt="+encodeURI(prompt),{
         headers: {
             "content-type": "application/json",
         },
     })
-    return api.data;
+    return await api.json();
     }catch(err){
     throw new Error("Error: "+ err.message)   
     }
