@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const axios = require('axios');
+// const axios = require('axios');
 const baseurl = "https://hercai.onrender.com/v3-beta/hercai";
 
 
@@ -33,7 +33,7 @@ async question({model = "v3-beta",content}){
 if(!["v3-beta","gemini"].some(ind => model == ind)) model = "v3-beta";
 if(!content || content == undefined || content == null)throw new Error("Please specify a question!");
 try{
-var api = await axios.get(`https://hercai.onrender.com/${model}/hercai?question=`+encodeURI(content),{
+var api = await fetch(`https://hercai.onrender.com/${model}/hercai?question=`+encodeURI(content),{
     headers: {
         "content-type": "application/json",
     },
@@ -60,7 +60,7 @@ async drawImage({model = "v3",prompt}){
     if(!["v1","v2","v2-beta","v3","lexica","prodia"].some(ind => model == ind)) model = "prodia";
     if(!prompt || prompt == undefined || prompt == null)throw new Error("Please specify a prompt!");
     try{
-    var api = await axios.get(`https://hercai.onrender.com/${model}/text2image`+"?prompt="+encodeURI(prompt),{
+    var api = await fetch(`https://hercai.onrender.com/${model}/text2image`+"?prompt="+encodeURI(prompt),{
         headers: {
             "content-type": "application/json",
         },
